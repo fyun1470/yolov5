@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EL IMAGE DEFECT DETECTION</title>
+    <style>
+        h1 {text-align: center;}
+        .image-preview {max-width: 400px; max-height: 400px; margin-bottom: 10px;}
+        .image-info {font-size: 14px;}
+        .result-container {margin-top: 20px;}
+        .result-image {max-width: 400px; max-height: 400px; margin-bottom: 10px;}
+        .result-info {font-size: 14px;}
+
+    </style>
+</head>
+<body>
+    <h1>EL IMAGE DEFECT DETECTION</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="image" id="upload_image" accept="image/*" multiple>
+        <br>
+        <div id="image-preview-container"></div>
+        <br>
+        <input type="submit" value="Detect">
+    </form>
+
+    <div id="result-container"></div>
+
+    <script>
+        const uploadImageInput = document.getElementById('upload_image');
+        const imagePreviewContainer = document.getElementById('image-preview-container');
+        const resultContainer = document.getElementById('result-container');
+
+        uploadImageInput.addEventListener('change', (e) => {
+            // Clear previous previews
+            imagePreviewContainer.innerHTML = ''; 
+            resultContainer.innerHTML = '';
+
+            Array.from(e.target.files).forEach((file) => {
+                const reader = new FileReader();
+
+                reader.addEventListener('load', (e) => {
+                    const imagePreview = document.createElement('img');
+                    imagePreview.src = e.target.result;
+                    imagePreview.classList.add('image-preview');
+                    imagePreviewContainer.appendChild(imagePreview);
+
+                    const imageInfo = document.createElement('p');
+                    imageInfo.classList.add('image-info');
+                    imageInfo.textContent = file.name;
+                    imagePreviewContainer.appendChild(imageInfo);
+                });
+
+                reader.readAsDataURL(file);
+            });
+        });
+    </script>
+</body>
+</html>

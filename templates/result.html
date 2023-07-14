@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detection Result</title>
+<style>
+    h1 {text-align: center;}                                                                 
+</style>
+</head>
+<body>
+    <h1>Detection Result</h1>
+
+    {% for image_filename in image_filenames %}
+        <img src="{{ url_for('static', filename=image_filename) }}" style="max-width: 400px; max-height: 400px;">
+        <br>
+    {% endfor %}
+
+    <p>{{ result }}</p>
+</body>
+</html>
